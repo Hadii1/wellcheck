@@ -63,6 +63,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '217560389508',
     projectId: 'wellcheck-app',
     storageBucket: 'wellcheck-app.firebasestorage.app',
-    iosBundleId: 'com.example.wellcheck',
+    iosBundleId: 'wellcheck.app.dev',
   );
 }

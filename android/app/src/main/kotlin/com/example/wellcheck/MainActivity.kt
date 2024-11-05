@@ -1,4 +1,4 @@
-package com.example.wellcheck
+package wellcheck.app.dev
 
 import io.flutter.embedding.android.FlutterActivity
 
