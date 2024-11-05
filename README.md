@@ -1,16 +1,15 @@
 # wellcheck
 
-A new Flutter project.
+Bloc State management was used for the history page.
+For the login and home page, I'm using my default state management option which is Riverpod.
+I've added a pull-to-refresh feature on the history page.
+Gambling events history is saved locally on the user device (SharedPreferences), the ideal way is to have them in an online source like firestore for sure.
 
-## Getting Started
+To run the app, simply clone this repo and execute flutter pub get and flutter run.
 
-This project is a starting point for a Flutter application.
+Email: hadihammoud1@outlook.com
 
-A few resources to get you started if this is your first Flutter project:
+This is a screen record of the app:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+https://github.com/user-attachments/assets/44877d28-96b7-4dd5-900d-2a2353358f9f
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
