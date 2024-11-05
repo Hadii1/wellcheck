@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wellcheck/firebase_options.dart';
 import 'package:wellcheck/screens/splash.dart';
+import 'package:wellcheck/shared/widgets/notification_banner.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,8 +27,16 @@ class WellCheckApp extends StatefulWidget {
 class _WellCheckAppState extends State<WellCheckApp> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: SplashScreen(),
+    return MaterialApp(
+      home: const SplashScreen(),
+      builder: (context, child) {
+        return Stack(
+          children: [
+            child!,
+            const LocalNotificationsBanner(),
+          ],
+        );
+      },
     );
   }
 }
