@@ -1,11 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:wellcheck/providers/user_provider.dart';
+import 'package:wellcheck/screens/home.dart';
+import 'package:wellcheck/screens/login.dart';
+import 'package:wellcheck/utils/enums.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends ConsumerWidget {
   const SplashScreen({super.key});
 
+  void navigate(Widget screen, BuildContext context) {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => screen),
+      (route) => false,
+    );
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(
+      userProvider,
+      (_, v) async {
+        if (v.status == NetworkCallStatus.success) {
+          navigate(
+            v.data == null ? const LoginScreen() : const HomeScreen(),
+            context,
+          );
+        }
+      },
+    );
+
     return Scaffold(
       body: Column(
         children: [
