@@ -5,6 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:wellcheck/blocs/history/history_bloc.dart';
 import 'package:wellcheck/blocs/history/history_state.dart';
+import 'package:wellcheck/shared/widgets/horizontal_screen_padder.dart';
 import 'package:wellcheck/utils/extensions.dart';
 import 'package:wellcheck/utils/spacings.dart';
 import 'package:wellcheck/utils/styles.dart';
@@ -21,9 +22,7 @@ class HistoryScreen extends StatelessWidget {
           'History',
         ),
       ),
-      body: Padding(
-        padding:
-            const EdgeInsets.symmetric(horizontal: Spacings.horizontalPadding),
+      body: HorizontalScreenPadder(
         child: BlocConsumer<HistoryBloc, HistoryState>(
           bloc: bloc,
           listener: (context, state) {},
@@ -57,9 +56,8 @@ class HistoryScreen extends StatelessWidget {
                       : RefreshIndicator(
                           onRefresh: () async => await bloc.refresh(),
                           child: ListView.builder(
-                            itemCount: (state as HistoryFetchSuccessful)
-                                .events
-                                .length,
+                            itemCount:
+                                (state as HistoryFetchSuccessful).events.length,
                             itemBuilder: (context, index) {
                               final event = state.events[index];
                               return Column(

@@ -5,6 +5,7 @@ import 'package:wellcheck/screen_states/home_state.dart';
 import 'package:wellcheck/screens/history.dart';
 import 'package:wellcheck/shared/widgets/custom_button.dart';
 import 'package:wellcheck/shared/widgets/custom_text_field.dart';
+import 'package:wellcheck/shared/widgets/horizontal_screen_padder.dart';
 import 'package:wellcheck/utils/extensions.dart';
 import 'package:wellcheck/utils/spacings.dart';
 
@@ -35,9 +36,7 @@ class HomeScreen extends ConsumerWidget {
           ),
         ],
       ),
-      body: Padding(
-        padding:
-            const EdgeInsets.symmetric(horizontal: Spacings.horizontalPadding),
+      body: HorizontalScreenPadder(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
