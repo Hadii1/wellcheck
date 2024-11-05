@@ -4,11 +4,32 @@ import 'package:wellcheck/providers/user_provider.dart';
 import 'package:wellcheck/screens/home.dart';
 import 'package:wellcheck/screens/login.dart';
 import 'package:wellcheck/utils/enums.dart';
+import 'package:wellcheck/utils/styles.dart';
 
-class SplashScreen extends ConsumerWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
-  void navigate(Widget screen, BuildContext context) {
+  @override
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends ConsumerState<SplashScreen> {
+  late final Stopwatch stopwatch;
+
+  @override
+  void initState() {
+    stopwatch = Stopwatch()..start();
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    stopwatch.stop();
+    super.dispose();
+  }
+
+  void navigate(Widget screen) {
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (context) => screen),
       (route) => false,
@@ -16,15 +37,22 @@ class SplashScreen extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     ref.listen(
       userProvider,
       (_, v) async {
         if (v.status == NetworkCallStatus.success) {
-          navigate(
-            v.data == null ? const LoginScreen() : const HomeScreen(),
-            context,
-          );
+          if (stopwatch.elapsed.inSeconds > 2) {
+            navigate(
+              v.data == null ? const LoginScreen() : const HomeScreen(),
+            );
+          } else {
+            await Future.delayed(
+                Duration(seconds: 2 - stopwatch.elapsed.inSeconds));
+            navigate(
+              v.data == null ? const LoginScreen() : const HomeScreen(),
+            );
+          }
         }
       },
     );
@@ -40,7 +68,7 @@ class SplashScreen extends ConsumerWidget {
                 fontSize: 28,
                 letterSpacing: 3,
                 fontWeight: FontWeight.w900,
-                color: Colors.blue,
+                color: Styles.mainPurple,
               ),
             ),
           ),
