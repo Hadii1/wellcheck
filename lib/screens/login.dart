@@ -53,10 +53,11 @@ class LoginScreen extends ConsumerWidget {
                     ? await notifier.register()
                     : await notifier.login();
                 if (context.mounted && result) {
-                  Navigator.of(context).push(
+                  Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(
                       builder: (_) => const HomeScreen(),
                     ),
+                    (route) => false,
                   );
                 }
               },
@@ -70,7 +71,9 @@ class LoginScreen extends ConsumerWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-               notifier.type == AuthType.register? 'Already have an account? Sign in' :    'Don\'t have an account yet? Register',
+                    notifier.type == AuthType.register
+                        ? 'Already have an account? Sign in'
+                        : 'Don\'t have an account yet? Register',
                     style: context.textTheme().titleMedium!.copyWith(
                           decoration: TextDecoration.underline,
                           color: Styles.mainPurple,
