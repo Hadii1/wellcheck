@@ -2,6 +2,7 @@ import 'package:animated_size_and_fade/animated_size_and_fade.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wellcheck/screen_states/home_state.dart';
+import 'package:wellcheck/screens/history.dart';
 import 'package:wellcheck/shared/widgets/custom_button.dart';
 import 'package:wellcheck/shared/widgets/custom_text_field.dart';
 import 'package:wellcheck/utils/extensions.dart';
@@ -18,6 +19,21 @@ class HomeScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('WellCheck'),
+        actions: [
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const HistoryScreen(),
+                ),
+              );
+            },
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Icon(Icons.list),
+            ),
+          ),
+        ],
       ),
       body: Padding(
         padding:

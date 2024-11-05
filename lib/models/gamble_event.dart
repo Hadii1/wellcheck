@@ -1,10 +1,12 @@
 import 'dart:convert';
 
-class GambleEvent {
+import 'package:equatable/equatable.dart';
+
+class GambleEvent extends Equatable {
   final DateTime time;
   final String? notes;
 
-  GambleEvent({
+  const GambleEvent({
     required this.time,
     required this.notes,
   });
@@ -31,4 +33,7 @@ class GambleEvent {
 
   factory GambleEvent.fromJson(String source) =>
       GambleEvent.fromMap(json.decode(source));
+
+  @override
+  List<Object?> get props => [time, notes];
 }
