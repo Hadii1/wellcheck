@@ -48,26 +48,26 @@ Future<bool?> showConfirmationDialog(
           Row(
             children: [
               InkWell(
-                onTap: () => Navigator.of(context).pop(true),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Ok',
-                    style: context
-                        .textTheme()
-                        .titleMedium!
-                        .copyWith(color: Styles.mainRed),
-                  ),
-                ),
-              ),
-              const Spacer(),
-              InkWell(
                 onTap: () => Navigator.of(context).pop(false),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     'Cancel',
                     style: context.textTheme().titleMedium,
+                  ),
+                ),
+              ),
+              const Spacer(),
+              InkWell(
+                onTap: () => Navigator.of(context).pop(true),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Confirm',
+                    style: context
+                        .textTheme()
+                        .titleMedium!
+                        .copyWith(color: Styles.mainRed),
                   ),
                 ),
               ),

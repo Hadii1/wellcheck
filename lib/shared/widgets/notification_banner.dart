@@ -45,7 +45,7 @@ class LocalNotificationsBanner extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: notification.useErrorColor
                                 ? Styles.mainRed
-                                : Styles.mainPurple,
+                                : Colors.green,
                             borderRadius: BorderRadius.circular(8),
                             boxShadow: [
                               BoxShadow(

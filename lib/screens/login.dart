@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wellcheck/screen_states/login_state.dart';
 import 'package:wellcheck/screens/home.dart';
-import 'package:wellcheck/shared/widgets/horizontal_screen_padder.dart';
-import 'package:wellcheck/utils/spacings.dart';
 import 'package:wellcheck/shared/widgets/custom_button.dart';
 import 'package:wellcheck/shared/widgets/custom_text_field.dart';
+import 'package:wellcheck/shared/widgets/horizontal_screen_padder.dart';
+import 'package:wellcheck/utils/extensions.dart';
+import 'package:wellcheck/utils/spacings.dart';
+import 'package:wellcheck/utils/styles.dart';
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
@@ -47,7 +49,9 @@ class LoginScreen extends ConsumerWidget {
               enabled:
                   notifier.email.isNotEmpty && notifier.password.isNotEmpty,
               onTap: () async {
-                bool result = await notifier.login();
+                bool result = notifier.type == AuthType.register
+                    ? await notifier.register()
+                    : await notifier.login();
                 if (context.mounted && result) {
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -56,24 +60,24 @@ class LoginScreen extends ConsumerWidget {
                   );
                 }
               },
-              label: 'Sign in',
+              label: notifier.type == AuthType.register ? 'Register' : 'Login',
             ),
-            Spacings.verticalElementsSpacing(),
-            RoundedButton(
-              animateLoadingState: true,
-              enabled:
-                  notifier.email.isNotEmpty && notifier.password.isNotEmpty,
-              onTap: () async {
-                bool result = await notifier.register();
-                if (context.mounted && result) {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => const HomeScreen(),
-                    ),
-                  );
-                }
-              },
-              label: 'Register',
+            Center(
+              child: InkWell(
+                onTap: () {
+                  notifier.toggleAuthType();
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+               notifier.type == AuthType.register? 'Already have an account? Sign in' :    'Don\'t have an account yet? Register',
+                    style: context.textTheme().titleMedium!.copyWith(
+                          decoration: TextDecoration.underline,
+                          color: Styles.mainPurple,
+                        ),
+                  ),
+                ),
+              ),
             ),
           ],
         ),
