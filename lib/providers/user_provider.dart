@@ -3,7 +3,7 @@ import 'package:wellcheck/models/user.dart';
 import 'package:wellcheck/repositories/auth_repository.dart';
 import 'package:wellcheck/services/firebase_auth.dart';
 import 'package:wellcheck/services/local_storage.dart';
-import 'package:wellcheck/utils/response.dart';
+import 'package:wellcheck/shared/model/response.dart';
 
 final userProvider = StateNotifierProvider<UserNotifier, Response<User?>>(
   (ref) => UserNotifier(
@@ -39,6 +39,7 @@ class UserNotifier extends StateNotifier<Response<User?>> {
 
   Future<void> logOut() async {
     await _repo.logOut();
+    await LocalStorage().deleteHistory();
     state = Response.completed(null);
   }
 

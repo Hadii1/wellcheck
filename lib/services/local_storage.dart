@@ -29,17 +29,23 @@ class LocalStorage {
     final existingEvents = await getGambleEvents();
     existingEvents.add(event);
 
-    await _prefs!.setString('gamble_events',
-        json.encode(existingEvents.map((e) => e.toJson()).toList()));
+    await _prefs!.setString(
+      'gamble_events_v1',
+      json.encode(existingEvents.map((e) => e.toJson()).toList()),
+    );
   }
 
   Future<List<GambleEvent>> getGambleEvents() async {
-    final String? eventsString = _prefs!.getString('gamble_events');
+    final String? eventsString = _prefs!.getString('gamble_events_v1');
     if (eventsString == null) {
       return [];
     }
 
     final List<dynamic> jsonList = json.decode(eventsString);
     return jsonList.map((json) => GambleEvent.fromJson(json)).toList();
+  }
+
+  Future<void> deleteHistory() async {
+    await _prefs!.remove('gamble_events_v1');
   }
 }
